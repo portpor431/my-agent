@@ -1,19 +1,21 @@
-name: SSH Test
+name: SSH
 
 on:
   workflow_dispatch:
 
 jobs:
-  test:
+  ssh:
     runs-on: ubuntu-latest
-    steps:
-      - name: Test network
-        run: |
-          set -x
-          curl -I --max-time 10 https://tmate.io
-          getent hosts ssh.tmate.io
-          timeout 10 bash -c '</dev/tcp/ssh.tmate.io/22' && echo "PORT 22 OK" || echo "PORT 22 FAILED"
+    timeout-minutes: 15
 
-      - name: Start tmate
+    steps:
+      - name: Check tmate
+        run: |
+          which tmate
+          tmate -V
+
+      - name: Start SSH
         uses: mxschmitt/action-tmate@v3.24
-        timeout-minutes: 10
+        with:
+          install-dependencies: false
+          limit-access-to-actor: true
