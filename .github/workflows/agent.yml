@@ -1,4 +1,4 @@
-name: My Agent
+name: Run Agent
 
 on:
   workflow_dispatch:
@@ -8,14 +8,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test Runner
-        run: |
-          echo "Agent started!"
-          echo "CPU:"
-          nproc
-          echo "RAM:"
-          free -h
-          echo "Disk:"
-          df -h
-          echo "Internet:"
-          curl -I https://www.google.com
+      - name: Get files
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run Agent
+        run: python agent.py
