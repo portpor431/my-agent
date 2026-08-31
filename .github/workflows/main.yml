@@ -1,21 +1,17 @@
-name: SSH
+name: SSH Debug Session
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:   # اجرای دستی از تب Actions
 
 jobs:
-  ssh:
+  ssh-session:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-
     steps:
-      - name: Install tmate
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y tmate
-          tmate -V
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      - name: Start SSH
-        uses: mxschmitt/action-tmate@v3.24
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
         with:
-          install-dependencies: false
+          limit-access-to-actor: true   # فقط خودت (بر اساس اکانت گیت‌هابت) وصل شی
+        timeout-minutes: 180             # مدت زمانی که رانر زنده می‌مونه
