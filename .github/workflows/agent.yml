@@ -1,20 +1,21 @@
-name: Run Agent
+name: Hermes Agent
 
 on:
   workflow_dispatch:
 
 jobs:
-  agent:
+  hermes:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get files
+      - name: Download repository
         uses: actions/checkout@v4
 
-      - name: Install Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+      - name: Install Hermes
+        run: |
+          curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+          echo "$HOME/.hermes/bin" >> $GITHUB_PATH
 
-      - name: Run Agent
-        run: python agent.py
+      - name: Check Hermes
+        run: |
+          hermes --help
