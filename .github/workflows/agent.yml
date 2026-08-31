@@ -19,3 +19,8 @@ jobs:
       - name: Check Hermes
         run: |
           hermes --help
+
+      - name: SSH into Runner
+        uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
