@@ -1,17 +1,14 @@
-name: SSH Debug Session
+name: SSH
 
 on:
-  workflow_dispatch:   # اجرای دستی از تب Actions
+  workflow_dispatch:
 
 jobs:
-  ssh-session:
+  ssh:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
 
-      - name: Setup tmate session
+    steps:
+      - name: Setup tmate
         uses: mxschmitt/action-tmate@v3
         with:
           limit-access-to-actor: true   # فقط خودت (بر اساس اکانت گیت‌هابت) وصل شی
-        timeout-minutes: 180             # مدت زمانی که رانر زنده می‌مونه
