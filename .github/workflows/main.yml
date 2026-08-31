@@ -9,13 +9,13 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - name: Check tmate
+      - name: Install tmate
         run: |
-          which tmate
+          sudo apt-get update
+          sudo apt-get install -y tmate
           tmate -V
 
       - name: Start SSH
         uses: mxschmitt/action-tmate@v3.24
         with:
           install-dependencies: false
-          limit-access-to-actor: true
