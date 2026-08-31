@@ -1,28 +1,19 @@
-name: SSH
+name: SSH Test
 
 on:
   workflow_dispatch:
 
 jobs:
-  ssh:
+  test:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-
     steps:
-      - name: Install tmate
+      - name: Test network
         run: |
-          sudo apt-get update
-          sudo apt-get install -y tmate
+          set -x
+          curl -I --max-time 10 https://tmate.io
+          getent hosts ssh.tmate.io
+          timeout 10 bash -c '</dev/tcp/ssh.tmate.io/22' && echo "PORT 22 OK" || echo "PORT 22 FAILED"
 
       - name: Start tmate
-        run: |
-          tmate -S /tmp/tmate.sock new-session -d
-          tmate -S /tmp/tmate.sock wait tmate-ready
-          echo "SSH:"
-          tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'
-          echo "WEB:"
-          tmate -S /tmp/tmate.sock display -p '#{tmate_web}'
-
-      - name: Keep session alive
-        run: |
-          sleep 900
+        uses: mxschmitt/action-tmate@v3.24
+        timeout-minutes: 10
