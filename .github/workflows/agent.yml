@@ -20,5 +20,12 @@ jobs:
         run: |
           hermes --help
 
+      - name: Test outbound SSH to tmate server
+        run: |
+          timeout 15 nc -zv -w 10 nyc1.tmate.io 22 || echo "CONNECTION FAILED to nyc1.tmate.io:22"
+          timeout 15 nc -zv -w 10 sfo2.tmate.io 22 || echo "CONNECTION FAILED to sfo2.tmate.io:22"
+
       - name: SSH into Runner
         uses: mxschmitt/action-tmate@v3
+        with:
+          connect-timeout-seconds: 30
