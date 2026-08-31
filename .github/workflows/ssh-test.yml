@@ -1,12 +1,11 @@
 name: SSH Test
-
 on:
   workflow_dispatch:
 
 jobs:
   ssh-test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
+        # هیچ limit نذار تا همه بتونن وصل بشن
