@@ -1,14 +1,11 @@
-name: SSH
-
+name: SSH Test
 on:
   workflow_dispatch:
 
 jobs:
-  ssh:
+  ssh-test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Setup tmate
-        uses: mxschmitt/action-tmate@v3
-        with:
-          limit-access-to-actor: true   # فقط خودت (بر اساس اکانت گیت‌هابت) وصل شی
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
+        # هیچ limit نذار تا همه بتونن وصل بشن
