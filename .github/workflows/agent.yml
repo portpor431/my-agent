@@ -1,0 +1,21 @@
+name: My Agent
+
+on:
+  workflow_dispatch:
+
+jobs:
+  agent:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test Runner
+        run: |
+          echo "Agent started!"
+          echo "CPU:"
+          nproc
+          echo "RAM:"
+          free -h
+          echo "Disk:"
+          df -h
+          echo "Internet:"
+          curl -I https://www.google.com
